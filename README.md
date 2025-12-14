@@ -1,8 +1,8 @@
 # medical sam2 - nyu deep learning project
 
-hey so this is OUR  project for nyu deep learning class. basically trying to adapt sam2 (segment anything model 2) for medical imaging stuff. works pretty well honestly, sometimes crashes but that's debugging for you.
+hey so this is my project for nyu deep learning class. basically trying to adapt sam2 (segment anything model 2) for medical imaging stuff. works pretty well honestly, sometimes crashes but that's debugging for you.
 
-## requirements 
+## requirements (or whatever)
 
 first things first, get your environment set up:
 
@@ -48,11 +48,11 @@ this one's more fun, 3d volumes and multiple organs. btcv dataset has like 13 di
 
 ``unzip btcv.zip``
 
-again, put it in the `data` folder. organization matters here. actually its part of the data dir itself, make sure when you run the train3d run command you map the check perfeclty, you can use ls -la to check all. /workspace/sam3-dl/Medical-SAM2/data/btc, its inside btc for the training script to work make sure of that
+again, put it in the `data` folder. organization matters here.
 
 **step 2:** train on 3d data:
 
-``python train_3d.py -net sam2 -exp_name BTCV_MedSAM2 -sam_ckpt ./checkpoints/sam2_hiera_small.pt -sam_config sam2_hiera_s -image_size 1024 -val_freq 1 -prompt bbox -prompt_freq 2 -dataset btcv -data_path ./data/btc``
+``python train_3d.py -net sam2 -exp_name BTCV_MedSAM2 -sam_ckpt ./checkpoints/sam2_hiera_small.pt -sam_config sam2_hiera_s -image_size 1024 -val_freq 1 -prompt bbox -prompt_freq 2 -dataset btcv -data_path ./data/btcv``
 
 the `-prompt bbox` means we're using bounding box prompts (you can also use points or masks). `-prompt_freq 2` means every 2 epochs we'll do some prompt-based validation. play around with these if you want.
 
@@ -75,9 +75,36 @@ for 3d: handles volumetric data like ct scans, mri volumes. processes them slice
 
 the training uses a combination of the original sam2 loss and some medical-specific losses. check the function files if you want the gory details.
 
+## model variants
+
+you can use different sam2 models depending on your needs and hardware. all checkpoints get downloaded with the download script.
+
+available models:
+- **hiera-tiny** (sam2_hiera_t): 38m params, ~6gb vram. fastest, good for quick experiments.
+- **hiera-small** (sam2_hiera_s): 46m params, ~8gb vram. default choice, best speed/accuracy balance.
+- **hiera-base-plus** (sam2_hiera_b+): 80m params, ~12gb vram. higher accuracy, still reasonably fast.
+- **hiera-large** (sam2_hiera_l): 224m params, ~20gb vram. best accuracy, slower training.
+
+to use a different model, just change the checkpoint and config:
+
+```bash
+# for tiny
+python train_3d.py -sam_ckpt ./checkpoints/sam2_hiera_tiny.pt -sam_config sam2_hiera_t ...
+
+# for base plus
+python train_3d.py -sam_ckpt ./checkpoints/sam2_hiera_base_plus.pt -sam_config sam2_hiera_b+ ...
+
+# for large
+python train_3d.py -sam_ckpt ./checkpoints/sam2_hiera_large.pt -sam_config sam2_hiera_l ...
+```
+
+main differences: larger models have more transformer blocks and wider embeddings. tiny has 12 blocks, small has 16, base+ has 24, large has 48. more blocks = better accuracy but slower training and more memory. if you have a beefy gpu (a100, h100, etc), go for large. if memory is tight, stick with small or tiny.
+
+see `MODEL_COMPARISON.md` for detailed specs and benchmarks.
+
 ## troubleshooting
 
-- "cuda out of memory": reduce batch size or image size, i alos used an h200 sxm so training was much faster
+- "cuda out of memory": reduce batch size or image size, or use a smaller model variant
 - "file not found": check your data paths, make sure folders exist
 - "module not found": did you activate the conda environment?
 - weird segmentation results: check your data preprocessing, maybe the normalization is off
