@@ -32,18 +32,7 @@ this one's pretty straightforward. fundus images, segment the optic cup. classic
 
 make sure to put it in a `data` folder (create it if it doesn't exist). the code expects things in specific places and will complain if stuff is missing. wait here you go you can use this direclty :
 
-```# Create data directory if it doesn't exist
-mkdir -p data
 
-# Download the dataset directly into the data folder
-wget -P data https://huggingface.co/datasets/jiayuanz3/btcv/resolve/main/btcv.zip
-
-# Unzip in the data folder and then remove the zip file
-cd data
-unzip btcv.zip
-rm btcv.zip
-cd ..
-```
 
 
 
@@ -82,6 +71,19 @@ this one's more fun, 3d volumes and multiple organs. btcv dataset has like 13 di
 ``unzip btcv.zip``
 
 again, put it in the `data` folder. organization matters here.
+
+```# Create data directory if it doesn't exist
+mkdir -p data
+
+# Download the dataset directly into the data folder
+wget -P data https://huggingface.co/datasets/jiayuanz3/btcv/resolve/main/btcv.zip
+
+# Unzip in the data folder and then remove the zip file
+cd data
+unzip btcv.zip
+rm btcv.zip
+cd ..
+```
 
 **step 2:** train on 3d data. here are commands for all model sizes:
 
