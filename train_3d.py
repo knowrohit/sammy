@@ -1,9 +1,22 @@
-# train.py
-#!/usr/bin/env	python3
-
-""" train network using pytorch
-    Yunli Qi
-"""
+# train_3d.py
+# How to run both on your H200
+# # aggressive batch sizes for H200/H100/A100 and run in parallelbash train_both_models.sh --high-memory --parallel --dataset btcv --data-path ./data/btcv
+# high-memory sets: tiny b=16, small b=12 (you can override)
+# parallel runs both at once; by default both on GPU 0
+# main training script for 3d medical image segmentation using sam2
+# handles volumetric data like ct scans and mri volumes
+# processes them slice by slice but maintains some 3d context through memory
+# supports different sam2 model variants (tiny, small, base+, large)
+# uses bounding box or point prompts for interactive segmentation
+# #!/usr/bin/env	python3
+# Available options:
+# --dataset: dataset name (default: btcv)
+# --data-path: path to data (default: ./data/btcv)
+# --image-size: image size (default: 1024)
+# --batch-size: batch size (default: 1)
+# --prompt: prompt type (default: bbox)
+# --prompt-freq: prompt frequency (default: 2)
+# --val-freq: validation frequency (default: 1)
 
 import os
 import time
