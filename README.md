@@ -194,6 +194,22 @@ bash train_both_models.sh --dataset btcv --data-path ./data/btcv --batch-size 2 
 
 the script runs tiny first, then small. checkpoints get saved separately in their respective log directories.
 
+**for high-end gpus (h200, h100, a100):**
+
+if you have a powerful gpu with lots of vram, use the `--high-memory` flag to maximize utilization:
+
+```bash
+bash train_both_models.sh --high-memory
+```
+
+this sets batch size to 16 for tiny and 12 for small. you can also set per-model batch sizes:
+
+```bash
+bash train_both_models.sh --batch-size-tiny 16 --batch-size-small 12
+```
+
+the script runs tiny first, then small. checkpoints get saved separately in their respective log directories.
+
 
 ## troubleshooting
 
