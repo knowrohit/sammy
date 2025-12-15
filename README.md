@@ -1,6 +1,6 @@
-# medical sam2 - nyu deep learning project
+# medical sam2 - n
 
-hey so this is my project for nyu deep learning class. basically trying to adapt sam2 (segment anything model 2) for medical imaging stuff. works pretty well honestly, sometimes crashes but that's debugging for you.
+basically trying to adapt sam2 (segment anything model 2) for medical imaging stuff. works pretty well honestly, sometimes crashes but that's debugging for you.
 
 ## requirements (or whatever)
 
