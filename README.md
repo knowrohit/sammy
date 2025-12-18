@@ -5,7 +5,7 @@
 ## Acknowledgements
 
 **Note on Implementation:**
-This project utilizes a modified version of the [Medical-SAM2 repository](https://github.com/ImprintLab/Medical-SAM2) developed by ImprintLab as well as base notebooks created by Meta in their [Sam2 Repo][https://github.com/facebookresearch/sam2?tab=readme-ov-file]. We leveraged their codebase to facilitate our training runs; given the significant architectural complexity of SAM2, utilizing this optimized framework was necessary to ensure computational efficiency and project feasibility within our time and resource constraints.
+This project utilizes a modified version of the [Medical-SAM2 repository](https://github.com/ImprintLab/Medical-SAM2) developed by ImprintLaq as well as base notebooks created by Meta in their [Sam2 Repo](https://github.com/facebookresearch/sam2?tab=readme-ov-file). We leveraged their codebase to facilitate our training runs; given the significant architectural complexity of SAM2, utilizing this optimized framework was necessary to ensure computational efficiency and project feasibility within our time and resource constraints.
 
 ## Overview
 
